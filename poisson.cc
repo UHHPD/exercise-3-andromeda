@@ -39,15 +39,13 @@ int main() {
     double mu_mean = 3.11538;
 
     ofstream pout("histpoi.txt");
-    ifstream finhist("hist.txt");
 
     for (unsigned int k = 0; k < zaehler.size(); ++k) {
-        int serial;
         double expectation = N * poisson(mu_mean, k);
-        pout << k << " " << serial << " " << expectation << std::endl;
+        pout << k << " " << expectation << std::endl;
     }
 
     pout.close();
-    finhist.close();
+
 
 }
