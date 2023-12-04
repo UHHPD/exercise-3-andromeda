@@ -1,13 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cmath>
 
 
 double poisson(double mu, int k) {
-    return 0;
+    return exp(-mu) * pow(mu, k) / tgamma(k + 1);
 }
 
 int main() {
+
+    int N = 234;
+
     using namespace std;
 
     vector<int> zaehler(11, 0);
@@ -31,5 +35,19 @@ int main() {
     }
 
     fout.close();
+
+    double mu_mean = 3.11538;
+
+    ofstream pout("histpoi.txt");
+    ifstream finhist("hist.txt");
+
+    for (unsigned int k = 0; k < zaehler.size(); ++k) {
+        int serial;
+        double expectation = N * poisson(mu_mean, k);
+        pout << k << " " << serial << " " << expectation << std::endl;
+    }
+
+    pout.close();
+    finhist.close();
 
 }
