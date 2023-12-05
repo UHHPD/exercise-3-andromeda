@@ -7,14 +7,24 @@ double poisson(double mu, int k) {
     return exp(-mu) * pow(mu, k) / tgamma(k + 1);
 }
 
-double negLogLikelihood(std::vector<int>& daten, double mu) {
-    double negLogLikelihood = 0.0;
+double prob(std::vector<int> daten, double mu) {
+    double likelihood = 1.0;
 
     for (int k : daten) {
-        negLogLikelihood -= 2.0 * log(poisson(mu, k));
+        likelihood *= poisson(mu, k);
     }
 
-    return negLogLikelihood;
+    return likelihood;
+}
+
+double negll(std::vector<int>& daten, double mu) {
+    double negll = 0.0;
+
+    for (int k : daten) {
+        negll -= 2.0 * log(poisson(mu, k));
+    }
+
+    return negll;
 }
 
 int main() {
@@ -31,26 +41,35 @@ int main() {
     }
     fin.close();
 
-    // Calculate -2 ln Λ
-    double logLambda = 0.0;
-    for (int k : daten) {
-        logLambda += negLogLikelihood(daten, k) - negLogLikelihood(daten, static_cast<double>(k));
+    // Compute the likelihood for µ = 3.11538 (mean of the sample)
+    double mu = 3.11538;
+    double likelihood = prob(daten, mu);
+
+    // Print the likelihood
+    cout << likelihood << endl;
+
+    //(3.b) Likelihood of mu from 0 to 6
+
+    ofstream f_likelihood("likelihood.txt");
+    ofstream f_nll("nll.txt");
+    ofstream f_delta("deltanll.txt");
+
+    for (double mu = 0.0; mu <= 6.0; mu += 0.1) {
+        double likelihood = prob(daten, mu);
+        double nll = negll(daten, mu);
+        double deltanll = nll - negll(daten, 3.11538);
+
+        f_likelihood << mu << " " << likelihood << endl;
+        f_nll << mu << " " << nll << endl;
+        f_delta << mu << " " << deltanll << endl;
+
     }
 
-    // Output -2 ln Λ
-    cout << "-2 ln Λ: " << scientific << logLambda << endl;
+    f_likelihood.close();
+    f_nll.close();
 
-    // Degrees of Freedom
-    int ndof = 233;
 
-    // Standard deviation approximation
-    double stdDev = sqrt(2.0 * ndof);
 
-    // Relative deviation
-    double z = logLambda / sqrt(-ndof) / stdDev;
-
-    // Output relative deviation
-    cout << "Relative Deviation (z): " << z << endl;
 
     return 0;
 }
