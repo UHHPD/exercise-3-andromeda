@@ -34,13 +34,13 @@ int main() {
     fout.close();
 
     
-    ofstream fout_comparison("histpoi.txt");
+    ofstream fout_poi("histpoi.txt");
 
     for(unsigned int k=0; k<zaehler.size(); k++){
-        fout_comparison << k << " " << zaehler[k] << " " << N*poisson(3.11538, k) << endl;
+        fout_1 << k << " " << zaehler[k] << " " << N*poisson(3.11538, k) << endl;
     }
 
-    fout_comparison.close();
+    fout_poi.close();
 
     return 0;
 }
