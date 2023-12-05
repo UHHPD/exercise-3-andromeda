@@ -7,7 +7,7 @@ double poisson(double mu, int k) {
     return exp(-mu) * pow(mu, k) / tgamma(k + 1);
 }
 
-double prob(std::vector<int>& daten, double mu) {
+double prob(std::vector<int> daten, double mu) {
     double likelihood = 1.0;
 
     for (int k : daten) {
@@ -38,5 +38,13 @@ int main() {
     // Print the likelihood
     cout << likelihood << endl;
 
+    //(3.b) Likelihood of mu from 0 to 6
+
+ofstream fout("likelihood.txt");
+
+for(double mu = 0.0; mu <= 6.0; mu += 0.1){
+    double likelihood = prob(daten, mu);
+    fout << likelihood << endl;
+}
     return 0;
 }
