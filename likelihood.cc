@@ -17,16 +17,6 @@ double prob(std::vector<int> daten, double mu) {
     return likelihood;
 }
 
-double negll(std::vector<int>& daten, double mu) {
-    double negll = 0.0;
-
-    for (int k : daten) {
-        negll -= 2.0 * log(poisson(mu, k));
-    }
-
-    return negll;
-}
-
 int main() {
     using namespace std;
 
@@ -54,10 +44,13 @@ int main() {
     ofstream f_nll("nll.txt");
     ofstream f_delta("deltanll.txt");
 
+    double mu_mean = 3.11538;
+    double nll_mean = -2 * log(prob(daten, mu_mean));
+
     for (double mu = 0.0; mu <= 6.0; mu += 0.1) {
         double likelihood = prob(daten, mu);
-        double nll = negll(daten, mu);
-        double deltanll = nll - negll(daten, 3.11538);
+        double nll = -2 * log(prob(daten,mu));
+        double deltanll = nll - nll_mean;
 
         f_likelihood << mu << " " << likelihood << endl;
         f_nll << mu << " " << nll << endl;
