@@ -37,7 +37,7 @@ int main() {
     ofstream fout_poi("histpoi.txt");
 
     for(unsigned int k=0; k<zaehler.size(); k++){
-        fout_1 << k << " " << zaehler[k] << " " << N*poisson(3.11538, k) << endl;
+        fout_poi << k << " " << zaehler[k] << " " << N*poisson(3.11538, k) << endl;
     }
 
     fout_poi.close();
