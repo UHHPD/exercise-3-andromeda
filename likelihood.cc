@@ -17,7 +17,19 @@ double prob(std::vector<int> daten, double mu) {
     return likelihood;
 }
 
+double lambda(std::vector<int> daten, double mu) {
+    double ll = 1.0;
+    double max_ll = 1;
+    for(int k: daten){
+        ll *= poisson(mu, k);
+        max_ll *= poisson(k, k);
+    }
+    return ll/max_ll;
+}
+
+
 int main() {
+    
     using namespace std;
 
     ifstream fin("datensumme.txt");
@@ -55,6 +67,7 @@ int main() {
         f_likelihood << mu << " " << likelihood << endl;
         f_nll << mu << " " << nll << endl;
         f_delta << mu << " " << deltanll << endl;
+        cout << mu << " " << -2 * log(lambda(daten, mu)) << endl;
 
     }
 
@@ -62,7 +75,9 @@ int main() {
     f_nll.close();
     f_delta.close();
 
+    int n_dof = 233;
 
+    cout << "z = " << (-2* log(lambda(daten, 3.11538)) - n_dof)/sqrt(2*n_dof) << endl;
 
 
     return 0;
