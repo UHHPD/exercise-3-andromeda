@@ -40,14 +40,14 @@ int main() {
 
     //(3.b) Likelihood of mu from 0 to 6
 
-ofstream fout("likelihood.txt");
+    ofstream fout("likelihood.txt");
 
-for(double mu = 0.0; mu <= 6.0; mu += 0.1){
-    for (int k : daten) {
-        likelihood *= poisson(mu, k);
+    for (double mu = 0.0; mu <= 6.0; mu += 0.1) {
+        double likelihood = prob(daten, mu);
+        fout << mu << " " << likelihood << endl;
     }
-    fout << likelihood << endl;
-}
+
+    fout.close();
 
     return 0;
 }
