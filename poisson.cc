@@ -15,11 +15,23 @@ int main() {
     ifstream fin("datensumme.txt");
     int N = 234;
     int n;
-    for (int i = 0; i < 234; ++i) {
+      for(int i = 0 ; i < 234 ; ++i) {
         fin >> n;
         zaehler[n] += 1;
     }
     fin.close();
+
+    ofstream fout("hist.txt");
+
+    for (unsigned int k = 0; 
+    k < zaehler.size(); 
+    ++k) 
+    {
+        cout << k << " : " << zaehler[k] << std::endl;
+        fout << k << " : " << zaehler[k] << std::endl;
+    }
+
+    fout.close();
 
     
     ofstream fout_comparison("histpoi.txt");
