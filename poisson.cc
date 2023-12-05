@@ -27,8 +27,8 @@ int main() {
     k < zaehler.size(); 
     ++k) 
     {
-        cout << k << " : " << zaehler[k] << std::endl;
-        fout << k << " : " << zaehler[k] << std::endl;
+        cout << k << " " << zaehler[k] << std::endl;
+        fout << k << " " << zaehler[k] << std::endl;
     }
 
     fout.close();
