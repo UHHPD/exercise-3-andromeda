@@ -13,6 +13,7 @@ int main() {
     vector<int> zaehler(11, 0);
 
     ifstream fin("datensumme.txt");
+    int N = 234;
     int n;
     for (int i = 0; i < 234; ++i) {
         fin >> n;
@@ -20,18 +21,14 @@ int main() {
     }
     fin.close();
 
-    ofstream fout("histpoi.txt");
+    
+    ofstream fout_comparison("histpoi.txt");
 
-    double mu = 3.11538;  // Mean value parameter
-
-    for (unsigned int k = 0; k < zaehler.size(); ++k) {
-        double poissonProb = poisson(mu, k);
-        double expectation = 234 * poissonProb;  // N * P(k, mu)
-        
-        fout << k << " : " << zaehler[k] << " : " << expectation << endl;
+    for(unsigned int k=0; k<zaehler.size(); k++){
+        fout_comparison << k << " " << zaehler[k] << " " << N*poisson(3.11538, k) << endl;
     }
 
-    fout.close();
+    fout_comparison.close();
 
     return 0;
 }
