@@ -67,13 +67,14 @@ int main() {
         f_likelihood << mu << " " << likelihood << endl;
         f_nll << mu << " " << nll << endl;
         f_delta << mu << " " << deltanll << endl;
-        cout << mu << " " << -2 * log(lambda(daten, mu)) << endl;
-
     }
-
+    cout << "mu_mean" << " " << -2 * log(lambda(daten, mu_mean)) << endl;
+    
     f_likelihood.close();
     f_nll.close();
     f_delta.close();
+
+    
 
     int n_dof = 233;
 
