@@ -27,8 +27,7 @@ int main() {
     for (unsigned int k = 0; k < zaehler.size(); ++k) {
         double poissonProb = poisson(mu, k);
         double expectation = 234 * poissonProb;  // N * P(k, mu)
-
-        cout << k << " : " << zaehler[k] << " - Poisson: " << poissonProb << " - Expectation: " << expectation << endl;
+        
         fout << k << " : " << zaehler[k] << " : " << expectation << endl;
     }
 
