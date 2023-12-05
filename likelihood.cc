@@ -43,8 +43,11 @@ int main() {
 ofstream fout("likelihood.txt");
 
 for(double mu = 0.0; mu <= 6.0; mu += 0.1){
-    double likelihood = prob(daten, mu);
+    for (int k : daten) {
+        likelihood *= poisson(mu, k);
+    }
     fout << likelihood << endl;
 }
+
     return 0;
 }
