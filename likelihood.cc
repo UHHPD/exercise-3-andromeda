@@ -60,6 +60,7 @@ int main() {
 
     f_likelihood.close();
     f_nll.close();
+    f_delta.close();
 
 
 
